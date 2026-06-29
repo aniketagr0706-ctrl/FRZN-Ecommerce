@@ -362,11 +362,34 @@ if (scrollSection && canvas && context) {
     
     // Aggressive background loading to get all 15MB of frames into memory quickly
     async function backgroundLoadAll() {
+        const globalLoader = $('globalLoader');
+        const loaderBar = $('loaderBar');
+        
+        if (globalLoader) {
+            document.body.classList.add('loading');
+        }
+        
+        let loadedCount = 0;
         for (let i = 0; i < frameCount; i++) {
             if (!imageCache[i] && !loadingSet.has(i)) {
                 await loadFrame(i);
             }
-            // Yield to main thread briefly to prevent blocking scroll
+            loadedCount++;
+            
+            // Update UI progress
+            if (loaderBar) {
+                loaderBar.style.width = `${(loadedCount / frameCount) * 100}%`;
+            }
+            
+            // Finished loading all frames
+            if (loadedCount === frameCount && globalLoader) {
+                setTimeout(() => {
+                    globalLoader.classList.add('hidden');
+                    document.body.classList.remove('loading');
+                }, 400); // slight delay for visual smoothness
+            }
+            
+            // Yield to main thread briefly to prevent blocking
             if (i % 5 === 0) await new Promise(r => setTimeout(r, 10));
         }
     }
