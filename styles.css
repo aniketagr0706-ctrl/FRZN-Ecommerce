@@ -535,9 +535,9 @@ body {
     align-items: center;
     overflow: hidden;
     z-index: 1;
-    /* Softly blend the edges of the animation into the background */
-    -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 70%);
-    mask-image: radial-gradient(ellipse at center, black 40%, transparent 70%);
+    /* Expanded the mask so it doesn't clip the bottom too early */
+    -webkit-mask-image: radial-gradient(ellipse at center, black 50%, transparent 80%);
+    mask-image: radial-gradient(ellipse at center, black 50%, transparent 80%);
 }
 
 #frameCanvas {
@@ -546,6 +546,8 @@ body {
     object-fit: contain;
     width: auto;
     height: auto;
+    /* Push the image down to visually center the jacket since the source images have empty top space */
+    transform: translateY(6vh);
 }
 
 .scroll-content-container {
