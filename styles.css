@@ -1584,6 +1584,10 @@ body.loading {
 }
 
 @media (max-width: 768px) {
+    html, body {
+        max-width: 100vw;
+        overflow-x: hidden;
+    }
     .navbar {
         padding: 1.2rem 1.5rem;
     }
@@ -1606,18 +1610,49 @@ body.loading {
     .search-dropdown.active {
         transform: translateX(50%) translateY(0) scale(1);
     }
-    .hero, .collection, .footer {
-        padding: 1.5rem;
+    
+    /* Premium Mobile Hero */
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 0;
+        padding-bottom: 3rem;
+        gap: 1.5rem;
     }
-    .hero-left, .hero-right, .hero-details, .add-to-cart {
+    .hero-center {
+        grid-column: span 1;
+        order: -1;
+        width: 100%;
+        margin: 0;
+    }
+    .hero-image {
+        width: 100%;
+        height: auto;
+        max-height: none;
+        object-fit: cover;
+        margin-top: -1rem; /* bring it closer to navbar */
+    }
+    .hero-left, .hero-right {
+        grid-column: span 1;
+        padding: 0 1.5rem;
         align-items: center;
         text-align: center;
+        flex-direction: column;
+        margin: 0;
     }
     .hero-title h1 {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
     }
     .hero-title h2 {
-        font-size: 3.5rem;
+        font-size: 4rem;
+        line-height: 1;
+        margin-bottom: 0.5rem;
+    }
+    .hero-right {
+        margin-top: 1rem;
+    }
+    
+    .collection, .footer {
+        padding: 1.5rem;
     }
     .scroll-arrow {
         width: 36px;
@@ -1667,13 +1702,28 @@ body.loading {
     .about-hero h1 {
         font-size: 3rem !important;
     }
+    
+    /* Premium Mobile Glassmorphism Scroll Blocks */
     .scroll-text-block {
-        width: 90%;
-        padding: 1.5rem;
+        width: 85%;
+        padding: 2rem;
         margin: 0 auto;
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        text-align: center;
+        transform: translateY(20px); /* slightly offset for float effect */
     }
     .scroll-text-block h2 {
         font-size: 1.8rem;
+        justify-content: center;
+    }
+    .scroll-text-block p {
+        font-size: 1rem;
+        opacity: 0.8;
     }
 }
 
