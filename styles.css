@@ -1641,7 +1641,7 @@ body.loading {
         font-size: 2.8rem;
     }
     .hero-title h2 {
-        font-size: 4rem;
+        font-size: 3.2rem;
         line-height: 1;
         margin-bottom: 0.5rem;
     }
@@ -1684,11 +1684,14 @@ body.loading {
         align-items: flex-start;
         gap: 2rem;
     }
+    .footer-bottom h1 {
+        font-size: 3rem;
+    }
     .footer-right {
         text-align: left;
     }
     .watermark {
-        font-size: 6rem;
+        font-size: 4rem;
         top: 30%;
     }
     .modal-details {
