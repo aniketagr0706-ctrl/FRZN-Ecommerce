@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRZN Puffer E-Com</title>
+    <meta name="description" content="FRZN High Fashion Puffer Jackets. Built for cold, made for height, forged to last.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="logo" id="logo" style="text-decoration: none;">FRZN</a>
+        <div class="nav-links">
+            <a href="index.html" class="active">HOME</a>
+            <div class="nav-dropdown">
+                <a href="products.html" class="nav-dropdown-trigger">PRODUCTS <i class="ri-arrow-down-s-line"></i></a>
+                <div class="nav-dropdown-menu">
+                    <a href="products.html?category=all">All Products</a>
+                    <a href="products.html?category=jacket">Jackets</a>
+                    <a href="products.html?category=tshirt">T-Shirts</a>
+                    <a href="products.html?category=glasses">Glasses</a>
+                    <a href="products.html?category=boots">Boots</a>
+                </div>
+            </div>
+            <a href="about.html">ABOUT US</a>
+        </div>
+        <div class="nav-icons">
+            <div class="search-wrapper">
+                <i class="ri-search-line" id="searchIcon"></i>
+                <div class="search-dropdown" id="searchOverlay">
+                    <div class="search-input-wrapper">
+                        <i class="ri-search-line"></i>
+                        <input type="text" id="searchInput" placeholder="Search products..." autocomplete="off">
+                        <button class="search-close" id="searchClose"><i class="ri-close-line"></i></button>
+                    </div>
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+            </div>
+            <i class="ri-shopping-bag-line" id="cartIcon"></i>
+            <span class="cart-count" id="cartCount">0</span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="hero">
+        <div class="hero-left">
+            <div class="hero-title">
+                <h1>COLLECTION</h1>
+                <h2>ARTIC 01&trade;</h2>
+            </div>
+            
+            <div class="hero-details">
+                <div class="size-selector">
+                    <span class="label">SIZE</span>
+                    <button>S</button>
+                    <button class="active">M</button>
+                    <button>L</button>
+                    <button>XL</button>
+                </div>
+                <div class="color-selector">
+                    <span class="label">COLOUR</span>
+                    <button class="active">WHITE</button>
+                    <button>SILVER</button>
+                </div>
+            </div>
+
+            <div class="add-to-cart">
+                <button class="cart-btn" id="heroCartBtn" aria-label="Add to cart"><i class="ri-arrow-right-up-line"></i></button>
+                <div class="price">
+                    <span>ADD TO CART</span>
+                    <strong>$899.99</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-center">
+            <img src="assets/hero_puffer_1782579518516.png" alt="Silver Puffer Jacket" class="hero-image" id="heroImage">
+        </div>
+
+        <div class="hero-right">
+            <div class="thumbnails">
+                <img src="assets/grid_puffer_1_1782579542505.png" alt="White Puffer Jacket Thumbnail" data-product-id="aurora">
+                <img src="assets/grid_puffer_2_1782579552742.png" alt="Black Puffer Jacket Thumbnail" data-product-id="stealth-black">
+            </div>
+            <div class="thumb-nav">
+                <span>01</span>
+                <div class="line"></div>
+                <span>07</span>
+            </div>
+            <div class="socials">
+                <a href="#" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+                <a href="#" aria-label="Twitter"><i class="ri-twitter-x-line"></i></a>
+                <a href="#" aria-label="YouTube"><i class="ri-youtube-line"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Scroll Animation Section -->
+    <section class="scroll-animation-section" id="scrollAnimation">
+        <div class="scroll-animation-sticky">
+            <canvas id="frameCanvas"></canvas>
+        </div>
+        
+        <div class="scroll-content-container">
+            <div class="scroll-text-block align-left" style="margin-top: 50vh;">
+                <span class="tech-label">01 // MATERIA</span>
+                <h2>AEROGEL INSULATION</h2>
+                <p>Engineered from materials used in aerospace exploration, providing maximum warmth with near-zero weight.</p>
+            </div>
+            
+            <div class="scroll-text-block align-right" style="margin-top: 100vh;">
+                <span class="tech-label">02 // THERMO</span>
+                <h2>HEAT-REFLECTIVE CORE</h2>
+                <p>Internal metallic baffling reflects 90% of body heat back to the wearer in sub-zero alpine conditions.</p>
+            </div>
+            
+            <div class="scroll-text-block align-left" style="margin-top: 100vh; margin-bottom: 50vh;">
+                <span class="tech-label">03 // ARMOR</span>
+                <h2>TEAR-RESISTANT SHELL</h2>
+                <p>Reinforced micro-ripstop outer shell withstands abrasion from jagged rock and dense brush on the ascent.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Removed Collection Section (Moved to products.html) -->
+
+    <!-- Product Detail Modal -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal">
+            <button class="modal-close" id="modalClose" aria-label="Close"><i class="ri-close-line"></i></button>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modalImg" src="" alt="Product">
+                </div>
+                <div class="modal-details">
+                    <span class="modal-category" id="modalCategory">PUFFER JACKET</span>
+                    <h2 class="modal-title" id="modalTitle">AURORA SILVER</h2>
+                    <p class="modal-desc" id="modalDesc">High-performance reflective puffer jacket designed for extreme cold.</p>
+                    <div class="modal-price-row">
+                        <span class="modal-price" id="modalPrice">$1,999.00</span>
+                    </div>
+
+                    <div class="modal-options">
+                        <div class="modal-option-group">
+                            <span class="label">SIZE</span>
+                            <div class="modal-sizes" id="modalSizes">
+                                <button>S</button>
+                                <button class="active">M</button>
+                                <button>L</button>
+                                <button>XL</button>
+                            </div>
+                        </div>
+                        <div class="modal-option-group">
+                            <span class="label">COLOUR</span>
+                            <div class="modal-colors" id="modalColors"></div>
+                        </div>
+                    </div>
+
+                    <div class="modal-features">
+                        <div class="feature"><i class="ri-shield-check-line"></i> <span>Weather Resistant</span></div>
+                        <div class="feature"><i class="ri-temp-cold-line"></i> <span>Extreme Cold Protection</span></div>
+                        <div class="feature"><i class="ri-recycle-line"></i> <span>Recycled Materials</span></div>
+                    </div>
+
+                    <button class="modal-add-btn" id="modalAddBtn">
+                        <i class="ri-shopping-bag-line"></i> ADD TO CART
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cartOverlay">
+        <div class="cart-sidebar" id="cartSidebar">
+            <div class="cart-header">
+                <h3>YOUR BAG</h3>
+                <button class="cart-sidebar-close" id="cartClose" aria-label="Close cart"><i class="ri-close-line"></i></button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items rendered by JS -->
+            </div>
+            <div class="cart-footer" id="cartFooter">
+                <div class="cart-total">
+                    <span>TOTAL</span>
+                    <strong id="cartTotal">$0.00</strong>
+                </div>
+                <button class="checkout-btn" id="checkoutBtn">CHECKOUT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="ri-check-line"></i>
+        <span id="toastMsg">Added to cart</span>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer" id="footer" style="background-image: url('assets/mountain_footer_1782579530796.png');">
+        <div class="footer-content">
+            <div class="watermark">FRZN</div>
+            <div class="footer-left">
+                <p>FRZN WAS BORN IN<br>THE MOUNTAINS. NOT<br>AS A TREND, BUT AS<br>A RESPONSE</p>
+                <small>[ PROTECT / ALTITUDE SPECS ]</small>
+            </div>
+            <div class="footer-bottom">
+                <h1>BUILT FOR COLD<br>MADE FOR HEIGHT<br>FORGED TO LAST</h1>
+                <div class="footer-right">
+                    <p>FOR THOSE WHO<br>CLIMB. NOT FOR<br>THE CROWD</p>
+                    <div class="barcode">||| ||||| | ||||| ||</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRZN About | The Brand</title>
+    <meta name="description" content="Discover the story behind FRZN.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="logo" style="text-decoration: none;">FRZN</a>
+        <div class="nav-links">
+            <a href="index.html">HOME</a>
+            <div class="nav-dropdown">
+                <a href="products.html" class="nav-dropdown-trigger">PRODUCTS <i class="ri-arrow-down-s-line"></i></a>
+                <div class="nav-dropdown-menu">
+                    <a href="products.html?category=all">All Products</a>
+                    <a href="products.html?category=jacket">Jackets</a>
+                    <a href="products.html?category=tshirt">T-Shirts</a>
+                    <a href="products.html?category=glasses">Glasses</a>
+                    <a href="products.html?category=boots">Boots</a>
+                </div>
+            </div>
+            <a href="about.html" class="active">ABOUT US</a>
+        </div>
+        <div class="nav-icons">
+            <div class="search-wrapper">
+                <i class="ri-search-line" id="searchIcon"></i>
+                <div class="search-dropdown" id="searchOverlay">
+                    <div class="search-input-wrapper">
+                        <i class="ri-search-line"></i>
+                        <input type="text" id="searchInput" placeholder="Search products..." autocomplete="off">
+                        <button class="search-close" id="searchClose"><i class="ri-close-line"></i></button>
+                    </div>
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Section -->
+    <section class="about-hero" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 4rem; text-align: center;">
+        <h1 style="font-family: var(--font-display); font-size: 6rem; letter-spacing: 5px; margin-bottom: 2rem; background: linear-gradient(180deg, #fff, #5e7386); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">FORGED TO LAST</h1>
+        <div style="max-width: 800px; font-size: 1.2rem; line-height: 2; opacity: 0.8;">
+            <p style="margin-bottom: 2rem;">FRZN was born in the mountains. Not as a trend, but as a response. A response to the biting wind, the sub-zero drops, and the unforgiving nature of altitude.</p>
+            <p style="margin-bottom: 2rem;">We don't build clothes. We build armor. Using aerospace-grade materials, heat-reflective metallic cores, and micro-ripstop shells, every piece of FRZN gear is engineered to protect you when the world turns cold.</p>
+            <p>For those who climb. Not for the crowd.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer" style="background-image: url('assets/mountain_footer_1782579530796.png');">
+        <div class="footer-content">
+            <div class="watermark">FRZN</div>
+            <div class="footer-left">
+                <p>FRZN WAS BORN IN<br>THE MOUNTAINS.</p>
+                <small>[ PROTECT / ALTITUDE SPECS ]</small>
+            </div>
+            <div class="footer-bottom">
+                <h1>BUILT FOR COLD<br>MADE FOR HEIGHT</h1>
+                <div class="footer-right">
+                    <p>FOR THOSE WHO<br>CLIMB.</p>
+                    <div class="barcode">||| ||||| | ||||| ||</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

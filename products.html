@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRZN Catalog | Built For Cold</title>
+    <meta name="description" content="Shop the FRZN High Fashion collection.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="logo" style="text-decoration: none;">FRZN</a>
+        <div class="nav-links">
+            <a href="index.html">HOME</a>
+            <div class="nav-dropdown">
+                <a href="products.html" class="nav-dropdown-trigger active">PRODUCTS <i class="ri-arrow-down-s-line"></i></a>
+                <div class="nav-dropdown-menu">
+                    <a href="products.html?category=all">All Products</a>
+                    <a href="products.html?category=jacket">Jackets</a>
+                    <a href="products.html?category=tshirt">T-Shirts</a>
+                    <a href="products.html?category=glasses">Glasses</a>
+                    <a href="products.html?category=boots">Boots</a>
+                </div>
+            </div>
+            <a href="about.html">ABOUT US</a>
+        </div>
+        <div class="nav-icons">
+            <div class="search-wrapper">
+                <i class="ri-search-line" id="searchIcon"></i>
+                <div class="search-dropdown" id="searchOverlay">
+                    <div class="search-input-wrapper">
+                        <i class="ri-search-line"></i>
+                        <input type="text" id="searchInput" placeholder="Search products..." autocomplete="off">
+                        <button class="search-close" id="searchClose"><i class="ri-close-line"></i></button>
+                    </div>
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+            </div>
+            <i class="ri-shopping-bag-line" id="cartIcon"></i>
+            <span class="cart-count" id="cartCount">0</span>
+        </div>
+    </nav>
+
+    <!-- Catalog Header -->
+    <header class="catalog-header" style="margin-top: 100px; padding: 4rem; text-align: center;">
+        <h1 style="font-family: var(--font-display); font-size: 4rem; letter-spacing: 4px;">THE ARCHIVE</h1>
+        <p style="opacity: 0.7; max-width: 600px; margin: 1rem auto;">Engineered for extreme conditions. Designed for the streets.</p>
+        
+        <div class="catalog-filters" style="margin-top: 3rem; display: flex; justify-content: center; gap: 1rem;">
+            <button class="filter-btn active" data-filter="all">ALL</button>
+            <button class="filter-btn" data-filter="jacket">JACKETS</button>
+            <button class="filter-btn" data-filter="tshirt">T-SHIRTS</button>
+            <button class="filter-btn" data-filter="glasses">GLASSES</button>
+            <button class="filter-btn" data-filter="boots">BOOTS</button>
+        </div>
+    </header>
+
+    <!-- Products Grid -->
+    <section class="collection" style="padding-top: 2rem;">
+        <div class="product-grid" id="catalogGrid">
+            <!-- Rendered by JS -->
+        </div>
+    </section>
+
+    <!-- Modals and Overlays (Same as index.html) -->
+    <!-- Product Detail Modal -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal">
+            <button class="modal-close" id="modalClose" aria-label="Close"><i class="ri-close-line"></i></button>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modalImg" src="" alt="Product">
+                </div>
+                <div class="modal-details">
+                    <span class="modal-category" id="modalCategory">PUFFER JACKET</span>
+                    <h2 class="modal-title" id="modalTitle">AURORA SILVER</h2>
+                    <p class="modal-desc" id="modalDesc">High-performance reflective puffer jacket designed for extreme cold.</p>
+                    <div class="modal-price-row">
+                        <span class="modal-price" id="modalPrice">$1,999.00</span>
+                    </div>
+
+                    <div class="modal-options">
+                        <div class="modal-option-group">
+                            <span class="label">SIZE</span>
+                            <div class="modal-sizes" id="modalSizes">
+                                <button>S</button>
+                                <button class="active">M</button>
+                                <button>L</button>
+                                <button>XL</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="modal-add-btn" id="modalAddBtn">
+                        <i class="ri-shopping-bag-line"></i> ADD TO CART
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cartOverlay">
+        <div class="cart-sidebar" id="cartSidebar">
+            <div class="cart-header">
+                <h3>YOUR BAG</h3>
+                <button class="cart-sidebar-close" id="cartClose" aria-label="Close cart"><i class="ri-close-line"></i></button>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+            <div class="cart-footer" id="cartFooter">
+                <div class="cart-total">
+                    <span>TOTAL</span>
+                    <strong id="cartTotal">$0.00</strong>
+                </div>
+                <button class="checkout-btn" id="checkoutBtn">CHECKOUT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="ri-check-line"></i>
+        <span id="toastMsg">Added to cart</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer" style="background-image: url('assets/mountain_footer_1782579530796.png');">
+        <div class="footer-content">
+            <div class="watermark">FRZN</div>
+            <div class="footer-left">
+                <p>FRZN WAS BORN IN<br>THE MOUNTAINS.</p>
+                <small>[ PROTECT / ALTITUDE SPECS ]</small>
+            </div>
+            <div class="footer-bottom">
+                <h1>BUILT FOR COLD<br>MADE FOR HEIGHT</h1>
+                <div class="footer-right">
+                    <p>FOR THOSE WHO<br>CLIMB.</p>
+                    <div class="barcode">||| ||||| | ||||| ||</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
