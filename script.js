@@ -361,7 +361,7 @@ if (scrollSection && canvas && context) {
     }
     
     // Aggressive background loading to get all 15MB of frames into memory quickly
-    async function backgroundLoadAll() {
+    function backgroundLoadAll() {
         const globalLoader = $('globalLoader');
         const loaderBar = $('loaderBar');
         
@@ -370,27 +370,26 @@ if (scrollSection && canvas && context) {
         }
         
         let loadedCount = 0;
-        for (let i = 0; i < frameCount; i++) {
-            if (!imageCache[i] && !loadingSet.has(i)) {
-                await loadFrame(i);
-            }
+        const updateProgress = () => {
             loadedCount++;
-            
-            // Update UI progress
             if (loaderBar) {
                 loaderBar.style.width = `${(loadedCount / frameCount) * 100}%`;
             }
-            
-            // Finished loading all frames
             if (loadedCount === frameCount && globalLoader) {
                 setTimeout(() => {
                     globalLoader.classList.add('hidden');
                     document.body.classList.remove('loading');
                 }, 400); // slight delay for visual smoothness
             }
-            
-            // Yield to main thread briefly to prevent blocking
-            if (i % 5 === 0) await new Promise(r => setTimeout(r, 10));
+        };
+
+        // Fire all requests in parallel. The browser's network stack will multiplex them optimally.
+        for (let i = 0; i < frameCount; i++) {
+            if (!imageCache[i] && !loadingSet.has(i)) {
+                loadFrame(i).then(updateProgress);
+            } else {
+                updateProgress();
+            }
         }
     }
     
