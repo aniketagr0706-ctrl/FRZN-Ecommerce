@@ -329,28 +329,56 @@ if (scrollSection && canvas && context) {
 
     const imageCache = new Array(frameCount).fill(null);
     let lastDrawnIndex = -1;
-    let loadingSet = new Set(); // Track in-flight loads to avoid duplicates
+    let loadingSet = new Set(); 
+    
+    // Asynchronous decoding prevents main thread freezes (lag) when images are drawn to canvas
+    async function loadFrame(idx) {
+        if (imageCache[idx] || loadingSet.has(idx)) return;
+        loadingSet.add(idx);
+        try {
+            const img = new Image();
+            img.src = currentFramePath(idx);
+            await img.decode(); 
+            imageCache[idx] = img;
+            
+            // If the user is currently parked on this frame but it was drawn blank/stale, draw it now
+            if (idx === pendingFrameToDraw) {
+                drawFrame(idx, true);
+            }
+        } catch (e) {
+            // Silent fail
+        } finally {
+            loadingSet.delete(idx);
+        }
+    }
     
     function preloadRange(centerIndex, radius) {
         const start = Math.max(0, centerIndex - radius);
         const end = Math.min(frameCount - 1, centerIndex + radius);
         for (let i = start; i <= end; i++) {
-            if (!imageCache[i] && !loadingSet.has(i)) {
-                loadingSet.add(i);
-                const img = new Image();
-                img.onload = () => { imageCache[i] = img; loadingSet.delete(i); };
-                img.onerror = () => { loadingSet.delete(i); };
-                img.src = currentFramePath(i);
-            }
+            loadFrame(i);
         }
     }
     
-    function drawFrame(index) {
-        if (index === lastDrawnIndex) return;
-        lastDrawnIndex = index;
+    // Aggressive background loading to get all 15MB of frames into memory quickly
+    async function backgroundLoadAll() {
+        for (let i = 0; i < frameCount; i++) {
+            if (!imageCache[i] && !loadingSet.has(i)) {
+                await loadFrame(i);
+            }
+            // Yield to main thread briefly to prevent blocking scroll
+            if (i % 5 === 0) await new Promise(r => setTimeout(r, 10));
+        }
+    }
+    
+    let pendingFrameToDraw = -1;
+    function drawFrame(index, force = false) {
+        if (index === lastDrawnIndex && !force) return;
+        pendingFrameToDraw = index;
         
         const img = imageCache[index];
-        if (img && img.complete && img.naturalWidth > 0) {
+        if (img) {
+            lastDrawnIndex = index;
             context.clearRect(0, 0, canvas.width, canvas.height);
             
             const hRatio = canvas.width / img.width;
@@ -361,14 +389,33 @@ if (scrollSection && canvas && context) {
             const cy = (canvas.height - img.height * ratio) / 2;
             
             context.drawImage(img, 0, 0, img.width, img.height, cx, cy, img.width * ratio, img.height * ratio);
+        } else {
+            // Draw closest available frame to prevent flashing empty canvas
+            let closestImg = null;
+            let minDiff = Infinity;
+            for (let i = Math.max(0, index - 20); i <= Math.min(frameCount - 1, index + 20); i++) {
+                if (imageCache[i]) {
+                    const diff = Math.abs(i - index);
+                    if (diff < minDiff) { minDiff = diff; closestImg = imageCache[i]; }
+                }
+            }
+            if (closestImg) {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                const hRatio = canvas.width / closestImg.width;
+                const vRatio = canvas.height / closestImg.height;
+                const ratio = Math.min(hRatio, vRatio);
+                const cx = (canvas.width - closestImg.width * ratio) / 2;
+                const cy = (canvas.height - closestImg.height * ratio) / 2;
+                context.drawImage(closestImg, 0, 0, closestImg.width, closestImg.height, cx, cy, closestImg.width * ratio, closestImg.height * ratio);
+            }
         }
         
-        // Preload a window of ±20 frames around the current position
-        preloadRange(index, 20);
+        // Always prioritize loading the window around the current scroll
+        preloadRange(index, 15);
     }
 
-    // Immediately preload the first 30 frames so the animation is ready when the user scrolls down
-    preloadRange(0, 30);
+    // Start loading everything
+    backgroundLoadAll();
 
     // Handle scroll
     let ticking = false;
