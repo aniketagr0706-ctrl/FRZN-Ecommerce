@@ -595,6 +595,33 @@ if (searchInput && searchResults) {
     });
 }
 
+// ============ MOBILE MENU ============
+const mobileMenuBtn = $('mobileMenuBtn');
+const mobileMenu = $('mobileMenu');
+const mobileMenuClose = $('mobileMenuClose');
+
+function openMobileMenu() {
+    if (mobileMenu) {
+        mobileMenu.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeMobileMenu() {
+    if (mobileMenu) {
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMobileMenu);
+if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeMobileMenu);
+
+// Close mobile menu when clicking a link
+document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+});
+
 // ============ KEYBOARD SHORTCUTS ============
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
